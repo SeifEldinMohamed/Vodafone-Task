@@ -1,6 +1,8 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-parcelize")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -43,6 +45,21 @@ dependencies {
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
+
+    // gson for serialized name annotation
+    implementation("com.google.code.gson:gson:2.10")
+
+    // ROOM
+    annotationProcessor("androidx.room:room-compiler:2.6.0")
+    // To use Kotlin annotation processing tool (kapt)
+    ksp("androidx.room:room-compiler:2.6.0")
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:2.6.0")
+
+    // Data Store
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    implementation("androidx.profileinstaller:profileinstaller:1.3.1")
 
     implementation(project(":domain"))
 }

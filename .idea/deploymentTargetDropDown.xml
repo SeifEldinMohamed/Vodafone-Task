@@ -2,7 +2,19 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="Tests in 'com'">
+        <State />
+      </entry>
+      <entry key="TrendingGithubScreenTest">
+        <State />
+      </entry>
       <entry key="app">
+        <State />
+      </entry>
+      <entry key="testTrendingGithubScreen_ContentLoading()">
+        <State />
+      </entry>
+      <entry key="testTrendingGithubScreen_ErrorState()">
         <State />
       </entry>
     </value>
