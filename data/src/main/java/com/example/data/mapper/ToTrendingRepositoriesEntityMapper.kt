@@ -2,7 +2,6 @@ package com.example.data.mapper
 
 import com.example.data.data_sources.local.entities.TrendingRepositoriesEntity
 import com.example.data.data_sources.remote.dto.trending_repositories.Item
-import com.example.data.data_sources.remote.dto.trending_repositories.TrendingGithubDataModel
 
 fun Item.toTrendingRepositoriesEntity(): TrendingRepositoriesEntity {
     return TrendingRepositoriesEntity(
