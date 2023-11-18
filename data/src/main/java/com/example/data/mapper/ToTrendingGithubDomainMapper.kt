@@ -1,7 +1,7 @@
 package com.example.data.mapper
 
 import com.example.data.data_sources.local.entities.TrendingRepositoriesEntity
-import com.example.data.data_sources.remote.dto.TrendingGithubDataModel
+import com.example.data.data_sources.remote.dto.trending_repositories.TrendingGithubDataModel
 import com.example.domain.model.TrendingGithubDomainModel
 
 fun TrendingGithubDataModel.toTrendingGithubDomainModel(): List<TrendingGithubDomainModel> {
@@ -17,15 +17,13 @@ fun TrendingGithubDataModel.toTrendingGithubDomainModel(): List<TrendingGithubDo
     }
 }
 
-fun List<TrendingRepositoriesEntity>.toTrendingGithubDomainModel(): List<TrendingGithubDomainModel> {
-    return this.map { item ->
-        TrendingGithubDomainModel(
-            id = item.id,
-            name = item.name,
-            avatar = item.avatar,
-            description = item.description,
-            stars = item.stars,
-            owner = item.owner
-        )
-    }
+fun TrendingRepositoriesEntity.toTrendingGithubDomainModel(): TrendingGithubDomainModel {
+    return TrendingGithubDomainModel(
+        id = this.id,
+        name = this.name,
+        avatar = this.avatar,
+        description = this.description,
+        stars = this.stars,
+        owner = this.owner
+    )
 }
