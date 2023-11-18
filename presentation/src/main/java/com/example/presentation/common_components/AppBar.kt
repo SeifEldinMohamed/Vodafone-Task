@@ -1,7 +1,12 @@
 package com.example.presentation.common_components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.*
+import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -13,12 +18,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.presentation.R
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppBar(
     modifier: Modifier = Modifier,
     titleText: String = stringResource(id = R.string.github_repository),
     titleTextColor: Color = Color.Black,
-    titleTextStyle: TextStyle = MaterialTheme.typography.h5,
+    titleTextStyle: TextStyle = MaterialTheme.typography.titleLarge,
     titleFontWeight: FontWeight = FontWeight.Bold,
     titleTag: String = "",
     appBarBackgroundColor: Color = Color.White
@@ -36,7 +42,7 @@ fun AppBar(
                     .fillMaxWidth()
             )
         },
-        backgroundColor = appBarBackgroundColor,
+        modifier = Modifier.background(appBarBackgroundColor),
     )
     Divider()
 }

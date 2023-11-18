@@ -1,14 +1,17 @@
 package com.example.presentation.screens.trending_screen
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.paging.compose.collectAsLazyPagingItems
+import com.example.presentation.common_components.AnimateShimmerList
 import com.example.presentation.common_components.AppBar
-import com.example.presentation.screens.trending_screen.preview.fakeTrendingGithubListUiModel
+import com.example.presentation.common_components.ErrorSection
 import com.example.presentation.screens.trending_screen.ui_state.TrendingUiState
 import com.example.presentation.theme.VodafoneTaskTheme
 import com.example.presentation.utils.Locators.TAG_STRING_TRENDING_APP_BAR_TITLE_LABEL
@@ -18,17 +21,33 @@ import com.example.presentation.utils.Locators.TAG_STRING_TRENDING_APP_BAR_TITLE
 fun TrendingGithubScreen(
     trendingUiState: TrendingUiState,
     onPulledToRefresh: (Boolean) -> Unit,
-    onRefreshButtonClicked: (Boolean) -> Unit,
+    onRefreshButtonClicked: () -> Unit,
     onItemClicked: (owner: String, repoName: String) -> Unit
 ) {
+    Log.d("trending", trendingUiState.toString())
     Column(modifier = Modifier.fillMaxSize()) {
         AppBar(titleTag = TAG_STRING_TRENDING_APP_BAR_TITLE_LABEL)
-        TrendingGithubSwipeRefresh(
-            trendingUiState = trendingUiState,
-            onPulledToRefresh = onPulledToRefresh,
-            onRefreshButtonClicked = onRefreshButtonClicked,
-            onItemClicked = { owner, repoName -> onItemClicked(owner, repoName) }
-        )
+        when {
+            trendingUiState.isLoading -> {
+                AnimateShimmerList()
+            }
+
+            trendingUiState.isError -> {
+                ErrorSection(onRefreshButtonClicked = onRefreshButtonClicked)
+            }
+
+            else -> {
+                trendingUiState.trendingGithubList?.let {
+                    val trendingRepositoriesLazyPagingItems = it.collectAsLazyPagingItems()
+                    TrendingGithubContent(
+                        trendingRepositoriesLazyPagingItems = trendingRepositoriesLazyPagingItems,
+                        onPulledToRefresh = onPulledToRefresh,
+                    ) { owner, repoName ->
+                        onItemClicked(owner, repoName)
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -52,7 +71,7 @@ fun PreviewTrendingGithubScreen() {
         TrendingGithubScreen(
             trendingUiState = TrendingUiState(
                 isLoading = false,
-                trendingGithubList = fakeTrendingGithubListUiModel
+                isError = true
             ), onPulledToRefresh = {},
             onRefreshButtonClicked = {},
             onItemClicked = { _, _ -> }

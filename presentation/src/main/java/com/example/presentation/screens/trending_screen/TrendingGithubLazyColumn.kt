@@ -1,36 +1,68 @@
 package com.example.presentation.screens.trending_screen
 
+import android.util.Log
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.key
-
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.itemContentType
+import androidx.paging.compose.itemKey
 import com.example.presentation.model.TrendingGithubUiModel
 import com.example.presentation.utils.Locators.TAG_STRING_TRENDING_LIST
 
 @Composable
 fun TrendingGithubLazyColumn(
-    trendingGithubList: List<TrendingGithubUiModel>,
+    trendingGithubList: LazyPagingItems<TrendingGithubUiModel>,
     onItemClicked: (owner: String, repoName: String) -> Unit
 ) {
+    LaunchedEffect(key1 = trendingGithubList.itemCount) {
+        Log.d(
+            "trending",
+            "size= ${trendingGithubList.itemCount} list = ${trendingGithubList.itemSnapshotList.items.toString()}"
+        )
+    }
+
     LazyColumn(
         modifier = Modifier
             .testTag(TAG_STRING_TRENDING_LIST)
             .padding(horizontal = 10.dp)
     ) {
-        itemsIndexed(trendingGithubList) { index, trendingGithubUiModel ->
-            key(trendingGithubUiModel.id) {
+        items(
+            count = trendingGithubList.itemCount,
+            key = trendingGithubList.itemKey { trendingGithubList -> trendingGithubList.id },
+            contentType = trendingGithubList.itemContentType { "repos" }
+        ) { index ->
+            val trendingGithubUiModel = trendingGithubList[index]
+            if (trendingGithubUiModel != null) {
                 TrendingItem(
                     trendingGithubUiModel = trendingGithubUiModel,
                     index = index,
                     onItemClicked = { owner, repoName -> onItemClicked(owner, repoName) }
                 )
                 Divider()
+            }
+        }
+
+        if (!trendingGithubList.loadState.append.endOfPaginationReached && trendingGithubList.itemCount != 0) {
+            item {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
             }
         }
     }

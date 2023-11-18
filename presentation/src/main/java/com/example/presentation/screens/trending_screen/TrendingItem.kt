@@ -4,8 +4,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -84,6 +84,9 @@ fun TrendingItem(
                             )
                         )
                         .padding(bottom = 6.dp)
+                        .weight(4f),
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1
                 )
 
                 Spacer(modifier = Modifier.weight(1f))
@@ -132,14 +135,10 @@ fun TrendingItem(
                         TAG_STRING_EXPANDABLE_ITEM_DESC_LABEL, index
                     )
                 ),
-                style = MaterialTheme.typography.body2,
+                style = MaterialTheme.typography.bodyMedium,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
-
-//            AnimatedVisibility(visible = isExpanded) {
-//                ExpandableItem(trendingGithubUiModel = trendingGithubUiModel, index = index)
-//            }
         }
     }
 }
@@ -155,75 +154,3 @@ fun TrendingItemPreview() {
         )
     }
 }
-
-//@Composable
-//fun ExpandableItem(trendingGithubUiModel: TrendingGithubUiModel, index: Int) {
-//    Column {
-//        Text(
-//            text = trendingGithubUiModel.description,
-//            modifier = Modifier.testTag(
-//                String.format(
-//                    TAG_STRING_EXPANDABLE_ITEM_DESC_LABEL, index
-//                )
-//            ),
-//            style = MaterialTheme.typography.body2,
-//            maxLines = 3,
-//            overflow = TextOverflow.Ellipsis
-//        )
-//
-//        Row(
-//            horizontalArrangement = Arrangement.Start,
-//            verticalAlignment = Alignment.CenterVertically,
-//            modifier = Modifier.fillMaxWidth()
-//        ) {
-//            Box(
-//                modifier = Modifier
-//                    .testTag(
-//                        String.format(
-//                            TAG_STRING_EXPANDABLE_ITEM_CIRCLE_ICON, index
-//                        )
-//                    )
-//                    .padding(end = 10.dp)
-//                    .size(12.dp)
-//                    .clip(RoundedCornerShape(24.dp))
-//                    .background(Color.Blue)
-//            )
-//
-//            Text(
-//                text = trendingGithubUiModel.language,
-//                modifier = Modifier
-//                    .testTag(
-//                        String.format(
-//                            TAG_STRING_EXPANDABLE_ITEM_LANGUAGE_LABEL, index
-//                        )
-//                    )
-//                    .padding(end = 5.dp)
-//            )
-//
-//            Image(
-//                painter = painterResource(id = R.drawable.ic_star),
-//                contentDescription = "start icon",
-//                colorFilter = ColorFilter.tint(Color.Yellow),
-//                modifier = Modifier
-//                    .testTag(
-//                        String.format(
-//                            TAG_STRING_EXPANDABLE_ITEM_STAR_ICON, index
-//                        )
-//                    )
-//                    .size(30.dp)
-//                    .padding(end = 5.dp)
-//            )
-//
-//            Text(
-//                text = trendingGithubUiModel.stars.toString(),
-//                modifier = Modifier
-//                    .testTag(
-//                        String.format(
-//                            TAG_STRING_EXPANDABLE_ITEM_STARS_NUMBER_LABEL, index
-//                        )
-//                    )
-//                    .padding(end = 5.dp)
-//            )
-//        }
-//    }
-//}

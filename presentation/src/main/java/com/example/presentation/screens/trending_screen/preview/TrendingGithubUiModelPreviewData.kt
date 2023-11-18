@@ -1,6 +1,11 @@
 package com.example.presentation.screens.trending_screen.preview
 
+import androidx.compose.runtime.Composable
+import androidx.paging.PagingData
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.presentation.model.TrendingGithubUiModel
+import kotlinx.coroutines.flow.flowOf
 
 val trendingGithubUiModel = TrendingGithubUiModel(
     id = 12345,
@@ -10,7 +15,15 @@ val trendingGithubUiModel = TrendingGithubUiModel(
     stars = 50,
     owner = "SeifMohamed"
 )
-val fakeTrendingGithubListUiModel = listOf(
-    trendingGithubUiModel,
-    trendingGithubUiModel
-)
+
+
+@Composable
+fun createFakeTrendingLazyPagingItemsUiModel(): LazyPagingItems<TrendingGithubUiModel> {
+    val fakeTrendingGithubListUiModel= listOf(
+        trendingGithubUiModel,
+        trendingGithubUiModel
+    )
+    val flow = flowOf(PagingData.from(fakeTrendingGithubListUiModel))
+
+    return flow.collectAsLazyPagingItems()
+}

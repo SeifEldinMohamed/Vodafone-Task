@@ -10,19 +10,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.presentation.common_components.AnimateShimmerList
-import com.example.presentation.common_components.ErrorSection
-import com.example.presentation.screens.trending_screen.preview.fakeTrendingGithubListUiModel
-import com.example.presentation.screens.trending_screen.ui_state.TrendingUiState
+import androidx.paging.compose.LazyPagingItems
+import com.example.presentation.model.TrendingGithubUiModel
+import com.example.presentation.screens.trending_screen.preview.createFakeTrendingLazyPagingItemsUiModel
 import com.example.presentation.theme.LightGreen
 import com.example.presentation.theme.VodafoneTaskTheme
 
 @ExperimentalMaterialApi
 @Composable
-fun TrendingGithubSwipeRefresh(
-    trendingUiState: TrendingUiState,
+fun TrendingGithubContent(
+    trendingRepositoriesLazyPagingItems: LazyPagingItems<TrendingGithubUiModel>,
     onPulledToRefresh: (Boolean) -> Unit,
-    onRefreshButtonClicked: (Boolean) -> Unit,
     onItemClicked: (owner: String, repoName: String) -> Unit
 ) {
     val refreshingState = rememberPullRefreshState(false, { onPulledToRefresh(true) })
@@ -31,20 +29,9 @@ fun TrendingGithubSwipeRefresh(
             .fillMaxSize()
             .pullRefresh(refreshingState)
     ) {
-        when {
-            trendingUiState.isLoading -> {
-                AnimateShimmerList()
-            }
-
-            trendingUiState.isError -> {
-                ErrorSection(onRefreshButtonClicked = onRefreshButtonClicked)
-            }
-
-            else -> {
-                TrendingGithubLazyColumn(trendingGithubList = trendingUiState.trendingGithubList,
-                    onItemClicked = { owner, repoName -> onItemClicked(owner, repoName) })
-            }
-        }
+        TrendingGithubLazyColumn(
+            trendingGithubList = trendingRepositoriesLazyPagingItems
+        ) { owner, repoName -> onItemClicked(owner, repoName) }
 
         PullRefreshIndicator(
             refreshing = false,
@@ -60,11 +47,9 @@ fun TrendingGithubSwipeRefresh(
 @Composable
 fun PreviewSwipeRefreshCompose() {
     VodafoneTaskTheme {
-        TrendingGithubSwipeRefresh(
-            trendingUiState = TrendingUiState(trendingGithubList = fakeTrendingGithubListUiModel),
+        TrendingGithubContent(
+            trendingRepositoriesLazyPagingItems = createFakeTrendingLazyPagingItemsUiModel(),
             onPulledToRefresh = {},
-            onRefreshButtonClicked = {},
-            onItemClicked = { _, _ ->  }
-        )
+        ) { _, _ -> }
     }
 }

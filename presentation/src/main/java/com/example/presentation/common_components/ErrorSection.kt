@@ -3,9 +3,9 @@ package com.example.presentation.common_components
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -32,7 +32,7 @@ import com.example.presentation.utils.Locators.TAG_STRING_ERROR_TITLE_LABEL
 
 @Composable
 fun ErrorSection(
-    onRefreshButtonClicked: (Boolean) -> Unit
+    onRefreshButtonClicked: () -> Unit
 ) {
     val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.error_animation))
     
@@ -56,7 +56,7 @@ fun ErrorSection(
 
         Text(
             text = stringResource(id = R.string.something_went_wrong),
-            style = MaterialTheme.typography.h6,
+            style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .testTag(TAG_STRING_ERROR_TITLE_LABEL)
@@ -65,7 +65,7 @@ fun ErrorSection(
 
         Text(
             text = stringResource(id = R.string.alien_blocking_your_signal),
-            style = MaterialTheme.typography.body1,
+            style = MaterialTheme.typography.bodyLarge,
             color = LightGray,
             modifier = Modifier.testTag(TAG_STRING_ERROR_DESCRIPTION_LABEL)
         )
@@ -79,7 +79,7 @@ fun ErrorSection(
                 .testTag(TAG_STRING_ERROR_RETRY_BUTTON)
                 .fillMaxWidth(0.8f),
             onClick = {
-                onRefreshButtonClicked(true)
+                onRefreshButtonClicked()
             }
         ) {
             Text(
