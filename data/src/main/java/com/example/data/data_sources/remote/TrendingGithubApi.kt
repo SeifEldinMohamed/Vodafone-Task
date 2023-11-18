@@ -1,6 +1,6 @@
 package com.example.data.data_sources.remote
 
-import com.example.data.data_sources.remote.dto.TrendingGithubDataModel
+import com.example.data.data_sources.remote.dto.trending_repositories.TrendingGithubDataModel
 import retrofit2.Response
 import retrofit2.http.GET
 

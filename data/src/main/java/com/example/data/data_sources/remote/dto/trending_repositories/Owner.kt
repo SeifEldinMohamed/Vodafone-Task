@@ -1,4 +1,4 @@
-package com.example.data.data_sources.remote.dto
+package com.example.data.data_sources.remote.dto.trending_repositories
 
 import com.google.gson.annotations.SerializedName
 
