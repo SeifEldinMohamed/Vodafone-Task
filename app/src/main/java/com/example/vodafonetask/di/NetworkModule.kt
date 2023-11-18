@@ -1,5 +1,6 @@
 package com.example.vodafonetask.di
 
+import com.example.data.data_sources.remote.RepoDetailsApi
 import com.example.data.data_sources.remote.TrendingGithubApi
 import com.example.vodafonetask.utils.Constants.Companion.BASE_URL
 import dagger.Module
@@ -25,7 +26,13 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideApiService(retrofit: Retrofit): TrendingGithubApi {
+    fun provideTrendingRepositoriesApiService(retrofit: Retrofit): TrendingGithubApi {
         return retrofit.create(TrendingGithubApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideRepositoryDetailsApiService(retrofit: Retrofit): RepoDetailsApi {
+        return retrofit.create(RepoDetailsApi::class.java)
     }
 }
