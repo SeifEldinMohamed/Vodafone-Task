@@ -53,7 +53,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
 
-    implementation("androidx.compose.material3:material3")
+    implementation ("androidx.compose.material3:material3:1.1.2")
 
     // mockk
     testImplementation("io.mockk:mockk:1.13.3")
@@ -93,6 +93,10 @@ dependencies {
 
     // coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+
+    // paging
+    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
+    implementation("androidx.paging:paging-compose:3.2.1")
 
     // lottie
     implementation("com.airbnb.android:lottie-compose:6.0.0")
