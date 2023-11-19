@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.Flow
 class FetchTrendingGithubUseCase(
     private val trendingRepository: TrendingRepository
 ) {
-    operator fun invoke(isForceFetch: Boolean): Flow<PagingData<TrendingGithubDomainModel>> {
-        return trendingRepository.fetchTrendingGithub(isForceFetch)
-    }
+    operator fun invoke(isForceFetch: Boolean): Flow<PagingData<TrendingGithubDomainModel>> = trendingRepository.fetchTrendingGithub(isForceFetch)
+
 }
