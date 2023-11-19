@@ -1,7 +1,16 @@
 package com.example.presentation.common_components
 
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
@@ -22,6 +31,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.presentation.R
+import com.example.presentation.model.CustomExceptionUiModel
 import com.example.presentation.theme.LightGray
 import com.example.presentation.theme.LightGreen
 import com.example.presentation.theme.LightWhite
@@ -32,10 +42,18 @@ import com.example.presentation.utils.Locators.TAG_STRING_ERROR_TITLE_LABEL
 
 @Composable
 fun ErrorSection(
-    onRefreshButtonClicked: () -> Unit
+    onRefreshButtonClicked: () -> Unit,
+    customErrorExceptionUiModel: CustomExceptionUiModel
 ) {
     val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.error_animation))
-    
+    val errorMessage = when(customErrorExceptionUiModel){
+        is CustomExceptionUiModel.Timeout -> stringResource(R.string.timeout_exception_message)
+        is CustomExceptionUiModel.NoInternetConnection -> stringResource(R.string.no_internet_connection_exception_message)
+        is CustomExceptionUiModel.Network -> stringResource(R.string.network_exception_meesage)
+        is CustomExceptionUiModel.ServiceUnreachable -> stringResource(R.string.service_unreachable_exception_message)
+        is CustomExceptionUiModel.Unknown -> stringResource(R.string.unknown_exception_message)
+
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -64,7 +82,7 @@ fun ErrorSection(
         )
 
         Text(
-            text = stringResource(id = R.string.alien_blocking_your_signal),
+            text = errorMessage,
             style = MaterialTheme.typography.bodyLarge,
             color = LightGray,
             modifier = Modifier.testTag(TAG_STRING_ERROR_DESCRIPTION_LABEL)
@@ -95,6 +113,9 @@ fun ErrorSection(
 @Preview
 @Composable
 fun PreviewNoInternetConnection() {
-    ErrorSection(onRefreshButtonClicked = {})
+    ErrorSection(
+        onRefreshButtonClicked = {},
+        customErrorExceptionUiModel = CustomExceptionUiModel.NoInternetConnection
+    )
 }
 
