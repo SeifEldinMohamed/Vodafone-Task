@@ -4,13 +4,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import androidx.paging.map
+import com.example.domain.model.CustomExceptionDomainModel
 import com.example.domain.usecase.FetchTrendingGithubUseCase
+import com.example.presentation.mapper.toCustomExceptionPresentationModel
 import com.example.presentation.mapper.toTrendingGithubUIModel
 import com.example.presentation.screens.trending_screen.ui_state.TrendingUiState
 import com.example.presentation.utils.DispatcherProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -32,7 +35,14 @@ class TrendingViewModel @Inject constructor(
         _trendingUiState.value = TrendingUiState(isLoading = true)
         viewModelScope.launch(dispatcher.io) {
             try {
-                fetchTrendingGithubUseCase(isForceFetch).cachedIn(viewModelScope)
+                fetchTrendingGithubUseCase(isForceFetch).catch {
+                    _trendingUiState.value = TrendingUiState(
+                        isLoading = false,
+                        isError = true,
+                        customErrorExceptionUiModel = (it as CustomExceptionDomainModel).toCustomExceptionPresentationModel()
+                    )
+                }
+                    .cachedIn(viewModelScope)
                     .collect { pagingData ->
                         val mappedData = pagingData.map { trendingGithubDomainModel ->
                             trendingGithubDomainModel.toTrendingGithubUIModel()
@@ -43,7 +53,11 @@ class TrendingViewModel @Inject constructor(
                         )
                     }
             } catch (e: Exception) {
-                _trendingUiState.value = TrendingUiState(isLoading = false, isError = true)
+                _trendingUiState.value = TrendingUiState(
+                    isLoading = false,
+                    isError = true,
+                    customErrorExceptionUiModel = (e as CustomExceptionDomainModel).toCustomExceptionPresentationModel()
+                )
             }
         }
     }

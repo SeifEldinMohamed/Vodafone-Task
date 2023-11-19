@@ -33,7 +33,10 @@ fun TrendingGithubScreen(
             }
 
             trendingUiState.isError -> {
-                ErrorSection(onRefreshButtonClicked = onRefreshButtonClicked)
+                ErrorSection(
+                    onRefreshButtonClicked = onRefreshButtonClicked,
+                    customErrorExceptionUiModel = trendingUiState.customErrorExceptionUiModel
+                )
             }
 
             else -> {
