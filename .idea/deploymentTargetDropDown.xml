@@ -2,10 +2,7 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="PreviewTrendingGithubScreen">
-        <State />
-      </entry>
-      <entry key="TrendingGithubScreenTest">
+      <entry key="Tests in 'com.example.presentation.screens.trending_screen'">
         <State />
       </entry>
       <entry key="app">

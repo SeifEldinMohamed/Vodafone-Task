@@ -10,7 +10,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 26
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -39,12 +39,17 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.8.10")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
 
     // mockk
     testImplementation("io.mockk:mockk:1.13.3")
+    testImplementation("app.cash.turbine:turbine:0.7.0")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
+
+    // okhttp3
+    testImplementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.11")
 
     // gson for serialized name annotation
     implementation("com.google.code.gson:gson:2.10")

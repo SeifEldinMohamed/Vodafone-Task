@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.vodafonetask"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -88,6 +88,8 @@ dependencies {
     ksp("androidx.room:room-compiler:2.6.0")
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:2.6.0")
+
+    debugImplementation("com.github.chuckerteam.chucker:library:4.0.0")
 
     implementation(project(":domain"))
     implementation(project(":data"))
