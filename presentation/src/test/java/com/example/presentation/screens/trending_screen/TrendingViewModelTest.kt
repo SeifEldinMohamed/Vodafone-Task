@@ -1,13 +1,19 @@
 package com.example.presentation.screens.trending_screen
 
 import app.cash.turbine.test
+import com.example.domain.model.CustomExceptionDomainModel
 import com.example.domain.usecase.FetchTrendingGithubUseCase
+import com.example.presentation.model.CustomExceptionUiModel
 import com.example.presentation.screens.trending_screen.ui_state.TrendingUiState
 import com.example.presentation.utils.MainCoroutineRule
 import com.example.presentation.utils.TestDispatchersImpl
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Before
@@ -35,7 +41,7 @@ class TrendingViewModelTest {
     fun `requestTrendingGithub(), when successful call, then should emit trendingUiState with loading then list of TrendingGithubUiModel`() {
         runTest {
             // Given
-            coEvery { fetchTrendingGithubUseCase(any()) } returns fakeTrendingGithubListDomainModel
+            coEvery { fetchTrendingGithubUseCase(any()) } returns fakeTrendingGithubLazyPagingDomainModel
 
             // When
             trendingViewModel.requestTrendingGithub(false)
@@ -43,7 +49,12 @@ class TrendingViewModelTest {
             // Then
             trendingViewModel.trendingUiState.test {
                 assertEquals(TrendingUiState(isLoading = true), awaitItem())
-                assertEquals(TrendingUiState(isLoading = false, trendingGithubList = fakeTrendingGithubListUiModel), awaitItem())
+                val comingState = awaitItem()
+                assertEquals(false, comingState.isLoading)
+                assertEquals(
+                    fakeTrendingGithubLazyPagingUiModel.first().javaClass,
+                    comingState.trendingGithubPagingDataFlow?.first()?.javaClass
+                )
                 cancelAndConsumeRemainingEvents()
             }
         }
@@ -53,17 +64,24 @@ class TrendingViewModelTest {
     fun `requestNews with exception should emit error state`() {
         runTest {
             // Given
-            coEvery { fetchTrendingGithubUseCase(any()) } throws Exception()
+            coEvery { fetchTrendingGithubUseCase(any()) } throws CustomExceptionDomainModel.NetworkExceptionDomainModel
 
             // When
-            trendingViewModel.requestTrendingGithub(false)
+            backgroundScope.launch(UnconfinedTestDispatcher()) {
+                trendingViewModel.requestTrendingGithub(false)
+
+            }
 
             // Then
             trendingViewModel.trendingUiState.test {
                 assertEquals(TrendingUiState(isLoading = true), awaitItem())
-                assertEquals(TrendingUiState(isLoading = false, isError = true), awaitItem())
+                advanceUntilIdle()
+                assertEquals(TrendingUiState(
+                    isLoading = false,
+                    isError = true,
+                    customErrorExceptionUiModel = CustomExceptionUiModel.Network
+                ), awaitItem())
                 cancelAndConsumeRemainingEvents()
-
             }
         }
     }
