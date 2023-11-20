@@ -1,6 +1,6 @@
 package com.example.vodafonetask.ui.navigation
 
-import android.util.Log
+import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -17,11 +17,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.presentation.screens.details_screen.DetailsScreen
+import com.example.presentation.screens.details_screen.RepositoryDetailsViewModel
+import com.example.presentation.screens.issues_screen.IssuesScreen
+import com.example.presentation.screens.issues_screen.IssuesViewModel
 import com.example.presentation.screens.trending_screen.TrendingGithubScreen
 import com.example.presentation.screens.trending_screen.TrendingViewModel
 import com.example.presentation.utils.Constants.Companion.NAME_ARGUMENT_KEY
 import com.example.presentation.utils.Constants.Companion.OWNER_ARGUMENT_KEY
 
+@SuppressLint("RestrictedApi")
 @ExperimentalComposeUiApi
 @Composable
 fun AppNavHost() {
@@ -35,15 +40,12 @@ fun AppNavHost() {
         composable(
             route = Screen.Home.route,
             enterTransition = {
-                Log.d("details", "Home: enterTransition ->  fadeIn Tween")
                 return@composable fadeIn(tween(1000))
             }, exitTransition = {
-                Log.d("details", "Home: exitTransition -> SlideDirection.Start")
                 return@composable slideOutOfContainer(
                     AnimatedContentTransitionScope.SlideDirection.Start, tween(700)
                 )
             }, popEnterTransition = {
-                Log.d("details", "Home: popEnterTransition -> SlideDirection.End")
                 return@composable slideIntoContainer(
                     AnimatedContentTransitionScope.SlideDirection.End, tween(700)
                 )
@@ -55,7 +57,7 @@ fun AppNavHost() {
             TrendingGithubScreen(
                 trendingUiState = trendingUiState.value,
                 onPulledToRefresh = trendingViewModel::requestTrendingGithub,
-                onRefreshButtonClicked = trendingViewModel::requestTrendingGithub,
+                onRefreshButtonClicked = { trendingViewModel.requestTrendingGithub(isForceFetch = true) },
                 onItemClicked = { owner, repoName ->
                     navController.navigate(
                         Screen.Details.passOwnerAndName(
@@ -76,24 +78,85 @@ fun AppNavHost() {
                     type = NavType.StringType
                 },
             ),
+            exitTransition = {
+                val currentDestination = navController.currentDestination?.route
+                return@composable  if (currentDestination == Screen.Home.route){
+                    slideOutOfContainer(
+                        AnimatedContentTransitionScope.SlideDirection.End, tween(700)
+                    )
+                }
+                else {
+                    slideOutOfContainer(
+                        AnimatedContentTransitionScope.SlideDirection.Start, tween(700)
+                    )
+                }
 
-            enterTransition = {
-                Log.d("details", "Details: enterTransition -> SlideDirection.Start")
+            }, popEnterTransition = {
                 return@composable slideIntoContainer(
-                    AnimatedContentTransitionScope.SlideDirection.Start, tween(700)
-                )
-            },
-            popExitTransition = {
-                Log.d("details", "Details: popExitTransition -> SlideDirection.End")
-                return@composable slideOutOfContainer(
                     AnimatedContentTransitionScope.SlideDirection.End, tween(700)
                 )
             }
         ) {
             val owner = it.arguments?.getString(OWNER_ARGUMENT_KEY)
             val name = it.arguments?.getString(NAME_ARGUMENT_KEY)
-            LaunchedEffect(key1 = Unit) {
-                Log.d("details", "in details $owner, $name")
+            if (owner != null && name != null) {
+                val repositoryDetailsViewModel: RepositoryDetailsViewModel = hiltViewModel()
+                LaunchedEffect(key1 = Unit) {
+                    repositoryDetailsViewModel.requestRepositoryDetails(owner, name)
+                }
+
+                val repositoryDetailsUiState =
+                    repositoryDetailsViewModel.repoDetailsUiState.collectAsState() // use with lifecycle
+                DetailsScreen(
+                    repositoryDetailsUiState = repositoryDetailsUiState.value,
+                    onRefreshButtonClicked = {
+                        repositoryDetailsViewModel.requestRepositoryDetails(owner, name)
+                    },
+                    onShowIssuesClicked = {
+                        navController.navigate(Screen.Issues.passOwnerAndName(owner, name))
+                    },
+                    onBackArrowClicked = { navController.navigateUp() }
+                )
+            }
+        }
+
+        composable(
+            route = Screen.Issues.route,
+            arguments = listOf(
+                navArgument(OWNER_ARGUMENT_KEY) {
+                    type = NavType.StringType
+                },
+                navArgument(NAME_ARGUMENT_KEY) {
+                    type = NavType.StringType
+                },
+            ),
+            exitTransition = {
+                return@composable slideOutOfContainer(
+                    AnimatedContentTransitionScope.SlideDirection.End, tween(700)
+                )
+            }, popEnterTransition = {
+                return@composable slideIntoContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Start, tween(700)
+                )
+            }
+        ) {
+            val owner = it.arguments?.getString(OWNER_ARGUMENT_KEY)
+            val name = it.arguments?.getString(NAME_ARGUMENT_KEY)
+            if (owner != null && name != null) {
+                val issuesViewModel: IssuesViewModel = hiltViewModel()
+                LaunchedEffect(key1 = Unit) {
+                    issuesViewModel.requestIssues(owner, name)
+                }
+
+                val issuesUiState =
+                    issuesViewModel.issuesUiState.collectAsState() // use with lifecycle
+                IssuesScreen(
+                    issuesUiState = issuesUiState.value,
+                    onRefreshList = {
+                        issuesViewModel.requestIssues(owner, name)
+                    },
+                    onBackArrowClicked = { navController.navigateUp() }
+                )
             }
         }
     }

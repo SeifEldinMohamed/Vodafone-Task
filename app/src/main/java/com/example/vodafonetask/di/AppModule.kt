@@ -1,7 +1,9 @@
 package com.example.vodafonetask.di
 
+import com.example.domain.repository.IssuesRepository
 import com.example.domain.repository.RepoDetailsRepository
 import com.example.domain.repository.TrendingRepository
+import com.example.domain.usecase.FetchIssuesUseCase
 import com.example.domain.usecase.FetchRepositoryDetailsUseCase
 import com.example.domain.usecase.FetchTrendingGithubUseCase
 import com.example.presentation.utils.DispatcherProvider
@@ -36,5 +38,13 @@ object AppModule {
         repoDetailsRepository: RepoDetailsRepository
     ): FetchRepositoryDetailsUseCase {
         return FetchRepositoryDetailsUseCase(repoDetailsRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideIssuesUseCase(
+        issuesRepository: IssuesRepository
+    ): FetchIssuesUseCase {
+        return FetchIssuesUseCase(issuesRepository)
     }
 }
