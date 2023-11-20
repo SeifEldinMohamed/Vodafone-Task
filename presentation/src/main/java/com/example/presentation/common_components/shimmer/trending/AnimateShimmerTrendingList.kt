@@ -29,7 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.presentation.common_components.shimmer.issues.ShimmerItem
+import com.example.presentation.common_components.shimmer.issues.IssuesShimmerItem
 import com.example.presentation.utils.Locators.TAG_STRING_LOADING_SHIMMER_TRENDING_LIST
 
 @Composable
@@ -63,14 +63,14 @@ fun AnimateShimmerTrendingList() {
                 end = Offset(x = translateAnim.value, y = translateAnim.value)
             )
 
-            ShimmerItem(brush = brush)
+            TrendingShimmerItem(brush = brush)
 
         }
     }
 }
 
 @Composable
-fun ShimmerItem(brush: Brush) {
+fun TrendingShimmerItem(brush: Brush) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -127,7 +127,7 @@ fun ShimmerItem(brush: Brush) {
 @Composable
 @Preview(showBackground = true)
 fun ShimmerItemPreview() {
-    ShimmerItem(
+    IssuesShimmerItem(
         brush = Brush.linearGradient(
             listOf(
                 Color.LightGray.copy(alpha = 0.6f),

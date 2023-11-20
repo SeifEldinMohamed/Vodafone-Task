@@ -61,13 +61,13 @@ fun AnimateShimmerIssuesList() {
                 end = Offset(x = translateAnim.value, y = translateAnim.value)
             )
 
-            ShimmerItem(brush = brush)
+            IssuesShimmerItem(brush = brush)
         }
     }
 }
 
 @Composable
-fun ShimmerItem(brush: Brush) {
+fun IssuesShimmerItem(brush: Brush) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -122,7 +122,7 @@ fun ShimmerItem(brush: Brush) {
 @Composable
 @Preview(showBackground = true)
 fun ShimmerItemPreview() {
-    ShimmerItem(
+    IssuesShimmerItem(
         brush = Brush.linearGradient(
             listOf(
                 Color.LightGray.copy(alpha = 0.6f),
