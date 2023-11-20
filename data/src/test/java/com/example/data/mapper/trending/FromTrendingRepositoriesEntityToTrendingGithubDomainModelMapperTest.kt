@@ -1,12 +1,13 @@
-package com.example.data.mapper
+package com.example.data.mapper.trending
 
 import com.example.data.data_sources.local.entities.TrendingRepositoriesEntity
-import com.example.data.repository.fakeTrendingGithubDomainModel
-import com.example.data.repository.fakeTrendingGithubDomainModel2
-import com.example.data.repository.fakeTrendingRepositoryEntity
-import com.example.data.repository.fakeTrendingRepositoryEntity2
+import com.example.data.mapper.toTrendingGithubDomainModel
+import com.example.data.repository.trending.fakeTrendingGithubDomainModel
+import com.example.data.repository.trending.fakeTrendingGithubDomainModel2
+import com.example.data.repository.trending.fakeTrendingRepositoryEntity
+import com.example.data.repository.trending.fakeTrendingRepositoryEntity2
 import com.example.domain.model.TrendingGithubDomainModel
-import junit.framework.TestCase.assertEquals
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
@@ -36,8 +37,8 @@ class FromTrendingRepositoriesEntityToTrendingGithubDomainModelMapperTest(
     @Test
     fun `toTrendingGithubDomainModel(), when TrendingEntity then it should return TrendingGithubDomainModel`() {
         // when
-        val result = inputData.toTrendingGithubDomainModel()
+        val result = inputData.map { it.toTrendingGithubDomainModel() }
         // then
-        assertEquals(expectedOutput, result)
+       assertEquals(expectedOutput, result)
     }
 }

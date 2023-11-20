@@ -1,12 +1,13 @@
-package com.example.data.mapper
+package com.example.data.mapper.trending
 
 import com.example.data.data_sources.local.entities.TrendingRepositoriesEntity
-import com.example.data.data_sources.remote.dto.TrendingGithubDataModel
-import com.example.data.repository.fakeTrendingGithubDataModel
-import com.example.data.repository.fakeTrendingGithubDataModel2
-import com.example.data.repository.fakeTrendingRepositoryEntity
-import com.example.data.repository.fakeTrendingRepositoryEntity2
-import junit.framework.TestCase.assertEquals
+import com.example.data.data_sources.remote.dto.trending_repositories.TrendingGithubDataModel
+import com.example.data.mapper.toTrendingRepositoriesEntity
+import com.example.data.repository.trending.fakeTrendingGithubDataModel
+import com.example.data.repository.trending.fakeTrendingGithubDataModel2
+import com.example.data.repository.trending.fakeTrendingRepositoryEntity
+import com.example.data.repository.trending.fakeTrendingRepositoryEntity2
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
@@ -36,7 +37,7 @@ class ToTrendingRepositoriesEntityMapperTest(
     @Test
     fun `toTrendingRepositoriesEntity(), when TrendingGithubDataModel then it should return TrendingRepositoriesEntity`() {
         // when
-        val result = inputData.toTrendingRepositoriesEntity()
+        val result = inputData.items.map { it.toTrendingRepositoriesEntity() }
         // then
         assertEquals(expectedOutput, result)
     }

@@ -1,5 +1,7 @@
-package com.example.data.repository
+package com.example.data.repository.trending
 
+import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.example.data.data_sources.local.entities.TrendingRepositoriesEntity
 
 val fakeTrendingRepositoryEntity = listOf(
@@ -31,3 +33,25 @@ val fakeTrendingRepositoryEntity2 = listOf(
         owner = "Seif"
     )
 )
+
+
+class FakeTrendingRepositoriesEntityPagingSource(private val fakeData: List<TrendingRepositoriesEntity>) :
+    PagingSource<Int, TrendingRepositoriesEntity>() {
+
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TrendingRepositoriesEntity> {
+        return try {
+            LoadResult.Page(
+                data = fakeData,
+                prevKey = 1,
+                nextKey = 2
+            )
+        } catch (e: Exception) {
+            LoadResult.Error(e)
+        }
+    }
+
+    override fun getRefreshKey(state: PagingState<Int, TrendingRepositoriesEntity>): Int? {
+        return null
+    }
+
+}

@@ -1,10 +1,11 @@
-package com.example.data.mapper
+package com.example.data.mapper.trending
 
-import com.example.data.data_sources.remote.dto.TrendingGithubDataModel
-import com.example.data.repository.fakeTrendingGithubDataModel
-import com.example.data.repository.fakeTrendingGithubDataModel2
-import com.example.data.repository.fakeTrendingGithubDomainModel
-import com.example.data.repository.fakeTrendingGithubDomainModel2
+import com.example.data.data_sources.remote.dto.trending_repositories.TrendingGithubDataModel
+import com.example.data.mapper.toTrendingGithubDomainModel
+import com.example.data.repository.trending.fakeTrendingGithubDataModel
+import com.example.data.repository.trending.fakeTrendingGithubDataModel2
+import com.example.data.repository.trending.fakeTrendingGithubDomainModel
+import com.example.data.repository.trending.fakeTrendingGithubDomainModel2
 import com.example.domain.model.TrendingGithubDomainModel
 import junit.framework.TestCase.assertEquals
 import org.junit.Test

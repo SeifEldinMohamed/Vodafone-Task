@@ -1,9 +1,9 @@
-package com.example.data.repository
+package com.example.data.repository.trending
 
-import com.example.data.data_sources.remote.dto.Item
-import com.example.data.data_sources.remote.dto.License
-import com.example.data.data_sources.remote.dto.Owner
-import com.example.data.data_sources.remote.dto.TrendingGithubDataModel
+import com.example.data.data_sources.remote.dto.trending_repositories.Item
+import com.example.data.data_sources.remote.dto.trending_repositories.License
+import com.example.data.data_sources.remote.dto.trending_repositories.Owner
+import com.example.data.data_sources.remote.dto.trending_repositories.TrendingGithubDataModel
 
 
 private val fakeOwner = Owner(
