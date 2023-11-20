@@ -35,13 +35,14 @@ class TrendingViewModel @Inject constructor(
         _trendingUiState.value = TrendingUiState(isLoading = true)
         viewModelScope.launch(dispatcher.io) {
             try {
-                fetchTrendingGithubUseCase(isForceFetch).catch {
-                    _trendingUiState.value = TrendingUiState(
-                        isLoading = false,
-                        isError = true,
-                        customErrorExceptionUiModel = (it as CustomExceptionDomainModel).toCustomExceptionPresentationModel()
-                    )
-                }
+                fetchTrendingGithubUseCase(isForceFetch)
+                    .catch {
+                        _trendingUiState.value = TrendingUiState(
+                            isLoading = false,
+                            isError = true,
+                            customErrorExceptionUiModel = (it as CustomExceptionDomainModel).toCustomExceptionPresentationModel()
+                        )
+                    }
                     .cachedIn(viewModelScope)
                     .collect { pagingData ->
                         val mappedData = pagingData.map { trendingGithubDomainModel ->
@@ -49,7 +50,7 @@ class TrendingViewModel @Inject constructor(
                         }
                         _trendingUiState.value = TrendingUiState(
                             isLoading = false,
-                            trendingGithubList = flowOf(mappedData)
+                            trendingGithubPagingDataFlow = flowOf(mappedData)
                         )
                     }
             } catch (e: Exception) {

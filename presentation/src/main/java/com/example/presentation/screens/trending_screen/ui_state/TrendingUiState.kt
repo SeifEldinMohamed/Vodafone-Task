@@ -6,7 +6,7 @@ import com.example.presentation.model.TrendingGithubUiModel
 import kotlinx.coroutines.flow.Flow
 
 data class TrendingUiState(
-    val trendingGithubList: Flow<PagingData<TrendingGithubUiModel>>? = null,
+    val trendingGithubPagingDataFlow: Flow<PagingData<TrendingGithubUiModel>>? = null,
     val isLoading: Boolean = false,
     val isError: Boolean = false,
     val customErrorExceptionUiModel: CustomExceptionUiModel = CustomExceptionUiModel.Unknown

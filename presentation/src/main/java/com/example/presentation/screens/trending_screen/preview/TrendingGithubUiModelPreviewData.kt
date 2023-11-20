@@ -7,7 +7,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.presentation.model.TrendingGithubUiModel
 import kotlinx.coroutines.flow.flowOf
 
-val trendingGithubUiModel = TrendingGithubUiModel(
+val trendingGithubUiModelPreviewData = TrendingGithubUiModel(
     id = 12345,
     name = "seif",
     avatar = "https://fakeurl.com/avatar.png",
@@ -20,8 +20,8 @@ val trendingGithubUiModel = TrendingGithubUiModel(
 @Composable
 fun createFakeTrendingLazyPagingItemsUiModel(): LazyPagingItems<TrendingGithubUiModel> {
     val fakeTrendingGithubListUiModel= listOf(
-        trendingGithubUiModel,
-        trendingGithubUiModel
+        trendingGithubUiModelPreviewData,
+        trendingGithubUiModelPreviewData
     )
     val flow = flowOf(PagingData.from(fakeTrendingGithubListUiModel))
 

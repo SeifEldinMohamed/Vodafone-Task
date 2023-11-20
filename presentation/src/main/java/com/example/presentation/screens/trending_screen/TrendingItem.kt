@@ -23,7 +23,7 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.example.presentation.R
 import com.example.presentation.model.TrendingGithubUiModel
-import com.example.presentation.screens.trending_screen.preview.trendingGithubUiModel
+import com.example.presentation.screens.trending_screen.preview.trendingGithubUiModelPreviewData
 import com.example.presentation.theme.VodafoneTaskTheme
 import com.example.presentation.utils.Locators.TAG_STRING_EXPANDABLE_AVATAR_IMAGE
 import com.example.presentation.utils.Locators.TAG_STRING_EXPANDABLE_ITEM_DESC_LABEL
@@ -64,7 +64,7 @@ fun TrendingItem(
                         TAG_STRING_EXPANDABLE_AVATAR_IMAGE, index
                     )
                 )
-                .size(40.dp)
+                .size(50.dp)
                 .padding(top = 8.dp, start = 8.dp)
                 .clip(RoundedCornerShape(80.dp))
         )
@@ -147,7 +147,7 @@ fun TrendingItem(
 @Composable
 fun TrendingItemPreview() {
     VodafoneTaskTheme {
-        TrendingItem(trendingGithubUiModel = trendingGithubUiModel,
+        TrendingItem(trendingGithubUiModel = trendingGithubUiModelPreviewData,
             index = 1,
             onItemClicked = { _, _ ->
             }

@@ -2,7 +2,8 @@ package com.example.presentation.utils
 
 object Locators {
     // loading
-    const val TAG_STRING_LOADING_SHIMMER_LIST = "loading_shimmer_list"
+    const val TAG_STRING_LOADING_SHIMMER_TRENDING_LIST = "loading_shimmer_trending_list"
+    const val TAG_STRING_LOADING_SHIMMER_ISSUES_LIST = "loading_shimmer_issues_list"
 
     // Trending list screen
     const val TAG_STRING_TRENDING_APP_BAR_TITLE_LABEL = "trending_app_bar_title_label"
@@ -27,6 +28,15 @@ object Locators {
     const val TAG_STRING_DETAILS_LANGUAGE_LABEL = "details_language_label"
     const val TAG_STRING_DETAILS_FORK_ICON = "details_fork_icon"
     const val TAG_STRING_DETAILS_FORKS_NUMBER_LABEL = "details_forks_number_label"
+
+    // issues
+    // Trending list screen
+    const val TAG_STRING_ISSUES_APP_BAR_TITLE_LABEL = "issues_app_bar_title_label"
+    const val TAG_STRING_ISSUES_LIST = "issues_list"
+    const val TAG_STRING_ISSUE_IMAGE = "issue_image_%d"
+    const val TAG_STRING_ISSUE_TITLE_LABEL = "issue_title_%d_label"
+    const val TAG_STRING_ISSUE_STATE_LABEL = "issue_state_%d_label"
+    const val TAG_STRING_ISSUE_AUTHOR_LABEL = "issue_author_%d_label"
 
 
     // Error Section

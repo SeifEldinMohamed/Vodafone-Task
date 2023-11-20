@@ -35,9 +35,9 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.example.presentation.R
-import com.example.presentation.common_components.AnimateShimmerList
 import com.example.presentation.common_components.AppBar
 import com.example.presentation.common_components.ErrorSection
+import com.example.presentation.common_components.shimmer.details.AnimateShimmerDetails
 import com.example.presentation.model.RepositoryDetailsUiModel
 import com.example.presentation.screens.details_screen.preview.fakeRepositoryDetailsUiModel
 import com.example.presentation.screens.details_screen.ui_state.RepositoryDetailsUiState
@@ -49,16 +49,18 @@ import com.example.presentation.utils.Locators.TAG_STRING_DETAILS_APP_BAR_TITLE_
 fun DetailsScreen(
     repositoryDetailsUiState: RepositoryDetailsUiState,
     onRefreshButtonClicked: () -> Unit,
-    onShowIssuesClicked: () -> Unit
+    onShowIssuesClicked: () -> Unit,
+    onBackArrowClicked: () -> Unit
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         AppBar(
             titleText = stringResource(R.string.details_app_bar_title),
-            titleTag = TAG_STRING_DETAILS_APP_BAR_TITLE_LABEL
+            titleTag = TAG_STRING_DETAILS_APP_BAR_TITLE_LABEL,
+            onBackArrowClicked = { onBackArrowClicked() }
         )
         when {
             repositoryDetailsUiState.isLoading -> {
-                AnimateShimmerList()
+                AnimateShimmerDetails()
             }
             repositoryDetailsUiState.repositoryDetails != null -> {
                 DetailsContent(repositoryDetailsUiState.repositoryDetails, onShowIssuesClicked)
@@ -202,7 +204,8 @@ fun PreviewTrendingGithubScreen() {
                 repositoryDetails = fakeRepositoryDetailsUiModel
             ),
             onShowIssuesClicked = {},
-            onRefreshButtonClicked = {}
+            onRefreshButtonClicked = {},
+            onBackArrowClicked = {}
         )
     }
 }

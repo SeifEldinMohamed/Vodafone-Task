@@ -9,9 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.example.presentation.common_components.AnimateShimmerList
 import com.example.presentation.common_components.AppBar
 import com.example.presentation.common_components.ErrorSection
+import com.example.presentation.common_components.shimmer.trending.AnimateShimmerTrendingList
 import com.example.presentation.screens.trending_screen.ui_state.TrendingUiState
 import com.example.presentation.theme.VodafoneTaskTheme
 import com.example.presentation.utils.Locators.TAG_STRING_TRENDING_APP_BAR_TITLE_LABEL
@@ -26,10 +26,14 @@ fun TrendingGithubScreen(
 ) {
     Log.d("trending", trendingUiState.toString())
     Column(modifier = Modifier.fillMaxSize()) {
-        AppBar(titleTag = TAG_STRING_TRENDING_APP_BAR_TITLE_LABEL)
+        AppBar(
+            titleTag = TAG_STRING_TRENDING_APP_BAR_TITLE_LABEL,
+            showBackArrow = false,
+            onBackArrowClicked = {}
+        )
         when {
             trendingUiState.isLoading -> {
-                AnimateShimmerList()
+                AnimateShimmerTrendingList()
             }
 
             trendingUiState.isError -> {
@@ -40,7 +44,7 @@ fun TrendingGithubScreen(
             }
 
             else -> {
-                trendingUiState.trendingGithubList?.let {
+                trendingUiState.trendingGithubPagingDataFlow?.let {
                     val trendingRepositoriesLazyPagingItems = it.collectAsLazyPagingItems()
                     TrendingGithubContent(
                         trendingRepositoriesLazyPagingItems = trendingRepositoriesLazyPagingItems,
