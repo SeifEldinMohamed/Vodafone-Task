@@ -1,5 +1,6 @@
 package com.example.presentation.screens.issues_screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -7,6 +8,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,7 +31,7 @@ fun IssuesScreen(
     onRefreshList: () -> Unit,
     onBackArrowClicked: () -> Unit
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize().background(color = MaterialTheme.colorScheme.background)) {
         AppBar(
             titleText = stringResource(R.string.issues_app_bar_title),
             titleTag = TAG_STRING_ISSUES_APP_BAR_TITLE_LABEL,

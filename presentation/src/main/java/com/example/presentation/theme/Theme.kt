@@ -10,30 +10,42 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
-private val darkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    background = Color.Black,
-    onSecondary = LightGreen
+private val lightColorScheme = lightColorScheme(
+    primary = light_primary,
+    onPrimary = light_onPrimary,
+    inversePrimary = light_inverse_primary,
+    secondary = light_secondary,
+    onSecondary = light_onSecondary,
+    error = light_error,
+    onError = light_onError,
+    background = light_background,
+    onBackground = light_onBackground,
+    surface = light_surface,
+    onSurface = light_onSurface,
 )
 
-private val lightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    background = LightWhite,
-    onSecondary = LightGreen
+private val darkColorScheme = darkColorScheme(
+    primary = dark_primary,
+    onPrimary = dark_onPrimary,
+    inversePrimary = dark_inverse_primary,
+    secondary = dark_secondary,
+    onSecondary = dark_onSecondary,
+    error = dark_error,
+    onError = dark_onError,
+    background = dark_background,
+    onBackground = dark_onBackground,
+    surface = dark_surface,
+    onSurface = dark_onSurface,
 )
 
 @Composable
 fun VodafoneTaskTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
@@ -42,6 +54,7 @@ fun VodafoneTaskTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
+
         darkTheme -> darkColorScheme
         else -> lightColorScheme
     }
@@ -50,7 +63,7 @@ fun VodafoneTaskTheme(
         SideEffect {
             val window = (view.context as Activity).window
             window.statusBarColor = colorScheme.primary.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
         }
     }
 

@@ -18,7 +18,7 @@ val Typography = Typography(
     titleLarge = TextStyle(
         fontFamily = Roboto,
         fontWeight = FontWeight.Bold,
-        fontSize = 22.sp,
+        fontSize = 22.sp
     ),
     titleMedium = TextStyle(
         fontFamily = Roboto,

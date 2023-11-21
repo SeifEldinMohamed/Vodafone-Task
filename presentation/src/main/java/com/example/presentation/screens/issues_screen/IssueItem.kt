@@ -1,6 +1,7 @@
 package com.example.presentation.screens.issues_screen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
@@ -9,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -43,7 +45,10 @@ fun IssueItem(
 
     Row(modifier = Modifier
         .fillMaxWidth()
-        .padding(top = 8.dp)
+        .padding(top = 2.dp)
+        .padding(bottom = 4.dp)
+        .background(color = MaterialTheme.colorScheme.surface, shape = RoundedCornerShape(12.dp))
+
 
     ) {
         Image(
@@ -57,7 +62,8 @@ fun IssueItem(
                 )
                 .size(40.dp)
                 .padding(top = 8.dp, start = 8.dp)
-                .clip(RoundedCornerShape(80.dp))
+                .clip(RoundedCornerShape(80.dp)),
+            colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.inversePrimary)
         )
 
         Column(modifier = Modifier.padding(10.dp)) {
@@ -78,6 +84,7 @@ fun IssueItem(
                         .weight(4f),
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
+                    color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.titleSmall
                 )
 
@@ -92,6 +99,7 @@ fun IssueItem(
                             )
                         )
                         .padding(end = 5.dp),
+                    color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
@@ -105,6 +113,7 @@ fun IssueItem(
                         )
                     )
                     .padding(bottom = 10.dp),
+                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyMedium
             )
 
@@ -117,6 +126,7 @@ fun IssueItem(
                 ),
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
+                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodySmall
             )
         }

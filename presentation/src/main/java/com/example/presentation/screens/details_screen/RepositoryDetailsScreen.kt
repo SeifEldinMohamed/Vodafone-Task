@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
@@ -24,7 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
@@ -81,7 +81,9 @@ fun DetailsContent(
     onShowIssuesClicked: () -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
@@ -95,7 +97,6 @@ fun DetailsContent(
                     .build()
             ),
             contentDescription = stringResource(R.string.accessbility_details_your_avatar_image),
-            contentScale = ContentScale.Fit,
             modifier = Modifier
                 .testTag(Locators.TAG_STRING_DETAILS_AVATAR_IMAGE)
                 .size(150.dp)
@@ -110,6 +111,7 @@ fun DetailsContent(
                 .padding(bottom = 16.dp),
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,
+            color = MaterialTheme.colorScheme.onSurface,
            style = MaterialTheme.typography.titleMedium
         )
 
@@ -119,6 +121,7 @@ fun DetailsContent(
         ) {
             Text(
                 text = repositoryDetails.stars,
+                color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier
                     .testTag(Locators.TAG_STRING_DETAILS_STARS_NUMBER_LABEL)
                     .padding(end = 6.dp),
@@ -140,6 +143,7 @@ fun DetailsContent(
                 modifier = Modifier
                     .padding(end = 6.dp)
                     .testTag(Locators.TAG_STRING_DETAILS_LANGUAGE_LABEL),
+                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyLarge
             )
 
@@ -154,6 +158,7 @@ fun DetailsContent(
 
             Text(
                 text = repositoryDetails.forks,
+                color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier
                     .testTag(Locators.TAG_STRING_DETAILS_FORKS_NUMBER_LABEL)
                     .padding(end = 6.dp),
@@ -174,6 +179,7 @@ fun DetailsContent(
 
         Text(
             text = repositoryDetails.description,
+            color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier
                 .fillMaxWidth(0.8f)
                 .testTag(Locators.TAG_STRING_DETAILS_DESC_LABEL),
@@ -183,11 +189,15 @@ fun DetailsContent(
         Spacer(modifier = Modifier.weight(1f))
 
         Button(
-            modifier = Modifier.fillMaxWidth(0.8f).padding(bottom = 16.dp),
+            modifier = Modifier
+                .fillMaxWidth(0.8f)
+                .padding(bottom = 16.dp),
+            colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colorScheme.secondary),
             onClick = onShowIssuesClicked
         ) {
             Text(
                 text = stringResource(R.string.show_issues),
+                color = MaterialTheme.colorScheme.onSecondary,
                 style = MaterialTheme.typography.titleMedium
             )
         }

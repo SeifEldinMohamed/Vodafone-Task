@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,6 +26,8 @@ fun TrendingGithubLazyColumn(
         modifier = Modifier
             .testTag(TAG_STRING_TRENDING_LIST)
             .padding(horizontal = 10.dp)
+            .padding(top = 4.dp)
+            .padding(bottom = 2.dp)
     ) {
         items(
             count = trendingGithubList.itemCount,
@@ -40,7 +41,6 @@ fun TrendingGithubLazyColumn(
                     index = index,
                     onItemClicked = { owner, repoName -> onItemClicked(owner, repoName) }
                 )
-                Divider()
             }
         }
 

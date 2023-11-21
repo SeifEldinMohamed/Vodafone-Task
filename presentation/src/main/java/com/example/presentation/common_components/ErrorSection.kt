@@ -34,7 +34,6 @@ import com.example.presentation.R
 import com.example.presentation.model.CustomExceptionUiModel
 import com.example.presentation.theme.LightGray
 import com.example.presentation.theme.LightGreen
-import com.example.presentation.theme.LightWhite
 import com.example.presentation.utils.Locators.TAG_STRING_ERROR_DESCRIPTION_LABEL
 import com.example.presentation.utils.Locators.TAG_STRING_ERROR_LOTTIE_ANIMATION
 import com.example.presentation.utils.Locators.TAG_STRING_ERROR_RETRY_BUTTON
@@ -57,7 +56,7 @@ fun ErrorSection(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(LightWhite)
+            .background(color = MaterialTheme.colorScheme.primary)
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -76,6 +75,7 @@ fun ErrorSection(
             text = stringResource(id = R.string.something_went_wrong),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier
                 .testTag(TAG_STRING_ERROR_TITLE_LABEL)
                 .padding(bottom = 10.dp)

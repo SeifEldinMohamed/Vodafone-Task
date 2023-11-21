@@ -9,6 +9,7 @@
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="Duration" value="90" />
+                  <entry key="OPPO CPH1911" value="120" />
                   <entry key="Pixel_6_API_28" value="120" />
                   <entry key="Tests" value="360" />
                 </map>
@@ -35,6 +36,7 @@
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="Duration" value="90" />
+                  <entry key="OPPO CPH1911" value="120" />
                   <entry key="Pixel_6_API_28" value="120" />
                   <entry key="Tests" value="360" />
                 </map>

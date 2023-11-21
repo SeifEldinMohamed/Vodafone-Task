@@ -1,6 +1,7 @@
 package com.example.presentation.screens.trending_screen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -44,7 +45,9 @@ fun TrendingItem(
         .clickable {
             onItemClicked(trendingGithubUiModel.owner, trendingGithubUiModel.name)
         }
-        .padding(top = 8.dp)
+        .padding(top = 2.dp)
+        .padding(bottom = 4.dp)
+        .background(color = MaterialTheme.colorScheme.surface, shape = RoundedCornerShape(12.dp))
 
     ) {
         Image(
@@ -86,6 +89,7 @@ fun TrendingItem(
                         .padding(bottom = 6.dp)
                         .weight(4f),
                     overflow = TextOverflow.Ellipsis,
+                    color = MaterialTheme.colorScheme.onSurface,
                     maxLines = 1
                 )
 
@@ -93,6 +97,7 @@ fun TrendingItem(
 
                 Text(
                     text = trendingGithubUiModel.stars.toString(),
+                    color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier
                         .testTag(
                             String.format(
@@ -119,6 +124,7 @@ fun TrendingItem(
 
             Text(
                 text = trendingGithubUiModel.owner,
+                color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier
                     .testTag(
                         String.format(
@@ -130,6 +136,7 @@ fun TrendingItem(
 
             Text(
                 text = trendingGithubUiModel.description,
+                color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.testTag(
                     String.format(
                         TAG_STRING_EXPANDABLE_ITEM_DESC_LABEL, index

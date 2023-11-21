@@ -19,6 +19,8 @@ fun IssuesLazyColumn(
         modifier = Modifier
             .testTag(Locators.TAG_STRING_ISSUES_LIST)
             .padding(horizontal = 10.dp)
+            .padding(top = 4.dp)
+            .padding(bottom = 2.dp)
     ) {
         itemsIndexed(items = issuesList){ index, issueUiModel ->
             IssueItem(
