@@ -38,23 +38,23 @@ The app should showcase your skills in Kotlin, Jetpack Compose, Coroutines, MVVM
 
 # Screen Shots
 <p align="center">
-<img src = "screenshots/trending_light.jpg"  height="600" width = "300">
-<img src = "screenshots/details_light.jpg"  height="600" width = "300">
-<img src = "screenshots/issues_light.jpg" height="600" width = "300">
+<img src = "screenshots/trending_light.jpg"  height="400" width = "200">
+<img src = "screenshots/details_light.jpg" height="400" width = "200">
+<img src = "screenshots/issues_light.jpg" height="400" width = "200">
 <br />
 <br />
-<img src = "screenshots/shimmer_light.jpg"  height="600" width = "300">
-<img src = "screenshots/error_light.jpg"  height="600" width = "300">
+<img src = "screenshots/shimmer_light.jpg"  height="400" width = "200">
+<img src = "screenshots/error_light.jpg" height="400" width = "200">
 <br />
 <br />
 <br />
 <br />
-<img src = "screenshots/trending_dark.jpg"  height="600" width = "300">
-<img src = "screenshots/details_dark.jpg" height="600" width = "300">
-<img src = "screenshots/issues_dark.jpg"  height="600" width = "300">
+<img src = "screenshots/trending_dark.jpg"  height="400" width = "200">
+<img src = "screenshots/details_dark.jpg" height="400" width = "200">
+<img src = "screenshots/issues_dark.jpg"  height="400" width = "200">
 <br />
 <br />
-<img src = "screenshots/shimmer_dark.jpg" height="600" width = "300">
-<img src = "screenshots/error_dark.jpg"  height="600" width = "300">
+<img src = "screenshots/shimmer_dark.jpg" height="400" width = "200">
+<img src = "screenshots/error_dark.jpg"  height="400" width = "200">
 </p>
 
