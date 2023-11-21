@@ -58,3 +58,7 @@ The app should showcase your skills in Kotlin, Jetpack Compose, Coroutines, MVVM
 <img src = "screenshots/error_dark.jpg"  height="400" width = "200">
 </p>
 
+# To be Continued
+- Search Functionality
+- Version Catalog
+
